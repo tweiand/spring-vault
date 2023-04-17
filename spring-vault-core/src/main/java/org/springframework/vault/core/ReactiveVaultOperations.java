@@ -16,17 +16,15 @@
 package org.springframework.vault.core;
 
 import java.util.function.Function;
-
 import org.reactivestreams.Publisher;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
 import org.springframework.lang.Nullable;
 import org.springframework.vault.VaultException;
 import org.springframework.vault.support.VaultResponse;
 import org.springframework.vault.support.VaultResponseSupport;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Interface that specifies a basic set of Vault operations executed on a reactive
@@ -39,6 +37,7 @@ import org.springframework.web.reactive.function.client.WebClientException;
  * {@link #doWithVault(Function) without a session}.
  *
  * @author Mark Paluch
+ * @author Timothy R. Weiand
  * @since 2.0
  * @see #doWithSession(Function)
  * @see #doWithVault(Function)
@@ -48,6 +47,25 @@ import org.springframework.web.reactive.function.client.WebClientException;
  * @see org.springframework.vault.authentication.VaultTokenSupplier
  */
 public interface ReactiveVaultOperations {
+
+	/**
+	 * Return {@link VaultKeyValueOperations}.
+	 * @param path the mount path, must not be empty or {@literal null}.
+	 * @param apiVersion API version to use, must not be {@literal null}.
+	 * @return the operations interface to interact with the Vault Key/Value backend.
+	 * @since xxx
+	 */
+	ReactiveVaultKeyValueOperations opsForKeyValue(String path,
+			VaultKeyValueOperationsSupport.KeyValueBackend apiVersion);
+
+	/**
+	 * Return {@link ReactiveVaultVersionedKeyValueOperations}.
+	 * @param path the mount path
+	 * @return the operations interface to interact with the versioned Vault Key/Value
+	 * (version 2) backend.
+	 * @since xxx
+	 */
+	// ReactiveVaultVersionedKeyValueOperations opsFormVersionedKeyValue(String path);
 
 	/**
 	 * Read from a Vault path. Reading data using this method is suitable for API
