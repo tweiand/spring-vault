@@ -65,7 +65,7 @@ public interface ReactiveVaultOperations {
 	 * (version 2) backend.
 	 * @since xxx
 	 */
-	// ReactiveVaultVersionedKeyValueOperations opsFormVersionedKeyValue(String path);
+	ReactiveVaultVersionedKeyValueOperations opsForVersionedKeyValue(String path);
 
 	/**
 	 * Read from a Vault path. Reading data using this method is suitable for API
